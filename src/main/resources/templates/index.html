@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ДОБАВЛЕНИЕ ПУБЛИКАЦИЙ В РУБРИКУ "МЕЖДУНАРОДНОЕ ОБОЗЛЕНИЕ"</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.slim.min.js"></script>
+</head>
+<body>
+<div class="page">
+    <div class="product-add">
+        <h4>ДОБАВЛЕНИЕ ПУБЛИКАЦИИ</h4>
+        <form action="/addProduct" method="POST">
+            <div class="product-input-form">
+                <div>
+                    <label class="form-label" for="title">Автор - </label>
+                    <input class="form-control" type="text" name="title" id="title" value=""/>
+                </div>
+                <div>
+                    <label class="form-label" for="article">ID публикации - </label>
+                    <input class="form-control" type="number" name="article" id="article">
+                </div>
+                <div>
+                    <label class="form-label" for="description">Текст - </label>
+                    <input class="form-control" type="text" name="description" id="description">
+                </div>
+                <div>
+                    <label class="form-label" for="cost">Гонорар - </label>
+                    <input class="form-control" type="number" name="cost" id="cost">
+                </div>
+                <div style="display: none">
+                    <label class="form-label" for="imageURL">ссылка на фото</label>
+                    <input class="form-control" type="text" name="imageURL" id="imageURL">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Добавить публикацию</button>
+            <button class="btn btn-danger" type="reset">Удалить публикацию</button>
+        </form>
+    </div>
+    <h4>ОПУБЛИКОВАННЫЕ СТАТЬИ</h4>
+    <div class="product-block">
+        <div class="product-card" th:each="product:${productList}">
+            <h3 class="product-card-title" th:text="${product.getTitle}"></h3>
+            <p class="product-card-article">ID публикации: <span th:text="${product.getArticle()}"></span></p>
+            <img class="product-card-foto" th:src="${product.getImageURL()}" src="" alt=" - иллюстрация к статье" srcset=""/>
+            <p class="product-card-cost">Гонорар: <span th:text="${product.getCost()}"></span> тыс. руб.</p>
+            <p class="product-card-description">Текст публикации: <span th:text="${product.getDescription()}"></span></p>
+            <a href="" th:href="@{'/del/'+${product.getArticle()}}">Удалить публикацию</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
